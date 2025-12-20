@@ -7,10 +7,11 @@ import {
   BlogContextProvider_43,
   useBlogBlogContext_43,
 } from "./_blogContext_43";
+import BlogList2_43 from "./_components/BlogList2_43";
 
 const BlogLocalJsonPage_43 = () => {
   return (
-    <BlogContextProvider_43>
+    <BlogContextProvider_43> 
       <Content_43 />
     </BlogContextProvider_43>
   )
@@ -37,22 +38,7 @@ const Content_43 = () => {
             blogs context from local json 2 -- {name}, {id}{" "}
           </h2>
         </div>
-        <div className="blogs-center">
-          {blogs_43.map((item) => {
-            const { id, title, descrip, category, img } = item;
-            return (
-              <Blog2_43
-                key={id}
-                id={id}
-                title={title}
-                descrip={descrip}
-                category={category}
-                img={img}
-                removeItem={removeItem}
-              />
-            );
-          })}
-        </div>
+        <BlogList2_43 />
         <div className="flex justify-center items-center gap-8 mt-8">
           <button
             type="button"
