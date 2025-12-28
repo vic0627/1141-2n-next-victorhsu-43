@@ -7,15 +7,42 @@ import { toast, ToastContainer } from "react-toastify";
 import Wrapper from "../_assets/wrapper/Grocery_43";
 import { nanoid } from "nanoid";
 
+const getLocalStorage = () => {
+  if (typeof window !== "undefined") {
+    let list = localStorage.getItem("list");
+    if (list) {
+      list = JSON.parse(list);
+    } else {
+      list = [];
+    }
+    return list;
+  }
+  return []; // Return default for server-side
+};
+
+const setLocalStorage = (items) => {
+  localStorage.setItem("list", JSON.stringify(items));
+};
+
 const GroceryPage_43 = () => {
   const [items, setItems] = useState([]);
+
+  useEffect(() => {
+    const storedList = getLocalStorage();
+    if (storedList.length > 0) {
+      setItems(storedList);
+    }
+  }, []);
+
   const addItem = (itemName) => {
     const newItem = {
       name: itemName,
       completed: false,
       id: nanoid(),
     };
-    setItems([...items, newItem]);
+    const newItems = [...items, newItem];
+    setItems(newItem);
+    setLocalStorage(newItems);
     toast.success("Item added successfully!");
   };
 
